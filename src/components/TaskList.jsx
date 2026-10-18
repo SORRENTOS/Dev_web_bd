@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import Badge from "./Badge";
+import EmptyState from "./EmptyState";
 
 const TaskList = ({ tareas, onCompletar, onEliminar }) => {
   const [filtro, setFiltro] = useState("todas");
@@ -36,9 +37,7 @@ const TaskList = ({ tareas, onCompletar, onEliminar }) => {
 
       {/* Mensaje si no hay tareas categoría */}
       {tareasFiltradas.length === 0 && (
-        <p style={{ textAlign: "center", color: "#94a3b8" }}>
-          No hay tareas en esta categoría 🎉
-        </p>
+        <EmptyState mensaje="No hay tareas en esta categoría" icono="🎉" />
       )}
 
       {/* Lista de tareas */}
@@ -48,7 +47,10 @@ const TaskList = ({ tareas, onCompletar, onEliminar }) => {
             
             {/* ZONA IZQUIERDA: badge + título */}
             <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1 }}>
-              <Badge texto={tarea.completada ? "completada" : "pendiente"} />
+              <Badge 
+                texto={tarea.completada ? "completada" : "pendiente"} 
+                onClick={() => onCompletar(tarea.id)} 
+              />
               <span
                 style={{
                   textDecoration: tarea.completada ? "line-through" : "none",

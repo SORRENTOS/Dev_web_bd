@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import Card from './components/Card';
+import Modal from './components/Modal';
 import Header from './components/Header';
 import TaskSummary from './components/TaskSummary';
 import TaskForm from './components/TaskForm';
@@ -74,8 +76,17 @@ funciones de abajo son previas a los cambios hechos por david y nico
     alert(`¡Intentaste agregar la tarea: "${titulo}"!`);
   };
 
-  const handleCompletar = (id) => {
+  /*const handleCompletar = (id) => {
     alert(`¡Intentaste cambiar el estado de la tarea con ID: ${id}!`);
+  };*/
+
+  /*para probar*/
+  const handleCompletar = (id) => {
+    setTareas(
+      tareas.map((tarea) =>
+        tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea
+      )
+    );
   };
 
   const handleEliminar = (id) => {
