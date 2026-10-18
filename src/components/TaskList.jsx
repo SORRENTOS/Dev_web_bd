@@ -3,7 +3,8 @@ import Button from "./Button";
 import Badge from "./Badge";
 import EmptyState from "./EmptyState";
 
-const TaskList = ({ tareas, onCompletar, onEliminar }) => {
+//tutorial 11 agrego ontoggle a las props que recibe el componente
+const TaskList = ({ tareas, onCompletar, onEliminar, onToggle }) => {
   const [filtro, setFiltro] = useState("todas");
 
   const tareasFiltradas = tareas.filter((t) => {
@@ -11,6 +12,15 @@ const TaskList = ({ tareas, onCompletar, onEliminar }) => {
     if (filtro === "completadas") return t.completada;
     return true;
   });
+
+  // función unificada 
+  const handleCompletar = (id, completadaActual) => {
+    if (onToggle) {
+      onToggle(id, completadaActual);
+    } else if (onCompletar) {
+      onCompletar(id);
+    }
+  };
 
   return (
     <div className="card">
@@ -49,7 +59,8 @@ const TaskList = ({ tareas, onCompletar, onEliminar }) => {
             <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1 }}>
               <Badge 
                 texto={tarea.completada ? "completada" : "pendiente"} 
-                onClick={() => onCompletar(tarea.id)} 
+                // 11: actualizamos el click para que envoe el estado actual
+                onClick={() => handleCompletar(tarea.id, tarea.completada)} 
               />
               <span
                 style={{
@@ -65,7 +76,8 @@ const TaskList = ({ tareas, onCompletar, onEliminar }) => {
             <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
               <Button
                 label={tarea.completada ? "Desmarcar" : "Completar"}
-                onClick={() => onCompletar(tarea.id)}
+                // 11: reemplazamos onCompletar por nueva funcion
+                onClick={() => handleCompletar(tarea.id, tarea.completada)}
                 variant={tarea.completada ? "success" : "primary"}
               />
               <Button
