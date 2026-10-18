@@ -109,3 +109,11 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+.btn-success {
+  background-color: #198754;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #146c43;
+}

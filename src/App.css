@@ -168,3 +168,11 @@ body {
   font-size: 0.8rem;
   color: #64748b;
 }
+.btn-success {
+  background-color: #198754;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #146c43;
+}
