@@ -1,18 +1,18 @@
 import { useState } from "react";
 import Button from "./Button";
 
-const TaskForm = ({ onAgregar }) => {
+const TaskForm = ({ onAgregar, guardando = false }) => {
   const [titulo, setTitulo] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (titulo.trim().length < 3) {
       setError("El título debe tener al menos 3 caracteres.");
       return;
     }
-    
+
     onAgregar(titulo.trim());
     setTitulo("");
     setError("");
@@ -25,11 +25,20 @@ const TaskForm = ({ onAgregar }) => {
         <input
           type="text"
           value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          onChange={(e) => {
+            setTitulo(e.target.value);
+            if (error) setError("");
+          }}
           placeholder="Escribe el título de la tarea..."
           className="task-input"
+          disabled={guardando}
         />
-        <Button label="Agregar" variant="primary" />
+        <Button
+          label={guardando ? "Guardando..." : "Agregar"}
+          variant="primary"
+          type="submit"
+          disabled={guardando || !titulo.trim()}
+        />
       </form>
       {error && <p className="form-error">{error}</p>}
     </div>

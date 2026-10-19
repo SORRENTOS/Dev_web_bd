@@ -1,95 +1,72 @@
-import { useState } from "react";
 import Button from "./Button";
-import Badge from "./Badge";
 import EmptyState from "./EmptyState";
+import TaskItem from "./TaskItem";
 
-//tutorial 11 agrego ontoggle a las props que recibe el componente
-const TaskList = ({ tareas, onCompletar, onEliminar, onToggle }) => {
-  const [filtro, setFiltro] = useState("todas");
-
-  const tareasFiltradas = tareas.filter((t) => {
-    if (filtro === "pendientes") return !t.completada;
-    if (filtro === "completadas") return t.completada;
-    return true;
-  });
-
-  // función unificada 
-  const handleCompletar = (id, completadaActual) => {
-    if (onToggle) {
-      onToggle(id, completadaActual);
-    } else if (onCompletar) {
-      onCompletar(id);
-    }
-  };
-
+const TaskList = ({
+  tareas = [],
+  filtro = "todas",
+  onCambiarFiltro,
+  busqueda = "",
+  onCambiarBusqueda,
+  onToggle,
+  onEliminar,
+  onEditar,
+  guardando = false,
+}) => {
   return (
-    <div className="card">
-      <h2 className="section-title">Mis tareas</h2>
-      
-      {/* Botones de filtro */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
-        <Button
-          label="📑 Todas"
-          onClick={() => setFiltro("todas")}
-          variant={filtro === "todas" ? "primary" : "secondary"}
+    <div>
+      <div style={{ marginBottom: "16px" }}>
+        <input
+          type="text"
+          placeholder="Buscar tareas por título..."
+          value={busqueda}
+          onChange={(e) => onCambiarBusqueda && onCambiarBusqueda(e.target.value)}
+          className="task-input"
+          style={{ width: "100%", boxSizing: "border-box", marginBottom: "12px" }}
         />
-        <Button
-          label="⏳ Pendientes"
-          onClick={() => setFiltro("pendientes")}
-          variant={filtro === "pendientes" ? "primary" : "secondary"}
-        />
-        <Button
-          label="✅ Completadas"
-          onClick={() => setFiltro("completadas")}
-          variant={filtro === "completadas" ? "primary" : "secondary"}
-        />
+
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <Button
+            label="📑 Todas"
+            onClick={() => onCambiarFiltro && onCambiarFiltro("todas")}
+            variant={filtro === "todas" ? "primary" : "secondary"}
+          />
+          <Button
+            label="⏳ Pendientes"
+            onClick={() => onCambiarFiltro && onCambiarFiltro("pendientes")}
+            variant={filtro === "pendientes" ? "primary" : "secondary"}
+          />
+          <Button
+            label="✅ Completadas"
+            onClick={() => onCambiarFiltro && onCambiarFiltro("completadas")}
+            variant={filtro === "completadas" ? "primary" : "secondary"}
+          />
+        </div>
       </div>
 
-      {/* Mensaje si no hay tareas categoría */}
-      {tareasFiltradas.length === 0 && (
-        <EmptyState mensaje="No hay tareas en esta categoría" icono="🎉" />
+      {tareas.length === 0 ? (
+        <EmptyState
+          mensaje={
+            busqueda
+              ? `No se encontraron tareas que coincidan con "${busqueda}"`
+              : "No hay tareas en esta categoría"
+          }
+          icono={busqueda ? "🔍" : "🎉"}
+        />
+      ) : (
+        <ul className="task-list">
+          {tareas.map((tarea) => (
+            <TaskItem
+              key={tarea.id}
+              tarea={tarea}
+              onToggle={onToggle}
+              onEliminar={onEliminar}
+              onEditar={onEditar}
+              guardando={guardando}
+            />
+          ))}
+        </ul>
       )}
-
-      {/* Lista de tareas */}
-      <ul className="task-list">
-        {tareasFiltradas.map((tarea) => (
-          <li key={tarea.id} className="task-item">
-            
-            {/* ZONA IZQUIERDA: badge + título */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1 }}>
-              <Badge 
-                texto={tarea.completada ? "completada" : "pendiente"} 
-                // 11: actualizamos el click para que envoe el estado actual
-                onClick={() => handleCompletar(tarea.id, tarea.completada)} 
-              />
-              <span
-                style={{
-                  textDecoration: tarea.completada ? "line-through" : "none",
-                  color: tarea.completada ? "#94a3b8" : "inherit",
-                }}
-              >
-                {tarea.titulo}
-              </span>
-            </div>
-
-            {/* ZONA DERECHA: botones */}
-            <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
-              <Button
-                label={tarea.completada ? "Desmarcar" : "Completar"}
-                // 11: reemplazamos onCompletar por nueva funcion
-                onClick={() => handleCompletar(tarea.id, tarea.completada)}
-                variant={tarea.completada ? "success" : "primary"}
-              />
-              <Button
-                label="Eliminar"
-                onClick={() => onEliminar(tarea.id)}
-                variant="danger"
-              />
-            </div>
-
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
