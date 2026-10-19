@@ -1,154 +1,67 @@
-# Plataforma E-commerce - Buonero
+# Task Campus
 
-> **Asignatura:** Desarrollo de Aplicaciones Web / Proyecto Solemne 02
-> **Sección:** P03
-> **Año / Semestre:** 2026 - Segundo Semestre  
+Task Campus es una plataforma web interactiva diseñada para la creación y gestión de listas de tareas (To-Do list), orientada a facilitar la organización y mejorar la productividad de sus usuarios.
 
----
+## Equipo de Desarrollo
 
-## 1. Identificación del Equipo y Roles
-*COLOQUEN SUS NOMBRES DE GIT Y AGREGR RESPONSABILIDADES*
+| Nombre                  | Rol                   |
+| :---------------------- | :-------------------- |
+| **Benjamín Rodríguez**  | **Scrum Master (SM)** |
+| **Antonella Araya**     | **Developer**         |
+| **David Bravo**         | **Developer**         |
+| **Jazmín Ruz**          | **Developer**         |
+| **Guillermo Tolentino** | **Developer**         |
+| **Nicolás Venegas**     | **Developer**         |
 
-| Integrante | Rol Principal | Nombre / Usuario GitHub | Responsabilidades Principales |
-| :--- | :--- | :--- | :--- |
-| **Benjamín Rodrigez** | **Scrum Master (SM)** | `@SORRENTOS` | responsabilidad |
-| **Antonella Araya** | **Developer** | `@nombre` | responsabilidad |
-| **David Bravo** | **Developer** | `@eldeivith` | responsabilidad |
-| **Jazmín Ruz** | **Developer** | `@kriscrosua` | responsabilidad |
-| **Gullermo Tolentino** | **Developer** | `@nombre` | responsabilidad |
-| **Nicolás Venegas** | **Developer** | `@Nicow647` | responsabilidad |
+## Tecnologías Clave
 
----
+Este proyecto está construido con un enfoque en el rendimiento y una sólida experiencia de desarrollo:
 
-## 2. Contexto, Alcance y Mejoras Opcionales
+- **React & React DOM:** Librerías principales para la construcción de la interfaz de usuario.
+- **Vite:** Entorno de desarrollo local ultrarrápido y herramienta de construcción.
+- **TypeScript:** Añade tipado estático al proyecto, mejorando la mantenibilidad del código y reduciendo errores.
+- **Oxlint:** Linter de alto rendimiento basado en Rust, diseñado para validaciones de código rápidas.
+- **LightningCSS:** Procesador CSS ultrarrápido para el manejo y optimización de estilos.
+- **Nanoid:** Utilidad para la generación de identificadores de strings únicos y compactos (ideal para manejar las _keys_ de las listas de tareas).
 
-### 2.1 Contexto del Negocio
-* **Rubro seleccionado:** Venta de Armas
-* **Nombre Comercial:** Buonero
-* **Identidad Visual:** *AÑADIR DESCRIPCION*
-* **Moneda de Operación:** Pesos Chilenos (`CLP`)
+## Requisitos Previos
 
-### 2.2 Alcance del Sistema
-* **Páginas Públicas:** *AÑADIR DESCRIPCION*
-* **Módulo Administrativo:** *AÑADIR DESCRIPCION*
-* **Roles de Usuario y Reglas de Negocio:**
-  * **Visitante:** Navegación, catálogo, carrito.
-  * **Cliente Activo:** Compra autenticada, reserva temporal de stock (15 min), consulta de historial propio.
-  * **Administrador Activo:** Gestión completa de la plataforma, sin facultad de compra o autorecorrido en checkout.
-  * **Usuario Bloqueado:** Denegación total de inicio de sesión y acciones autenticadas.
+- [Node.js](https://nodejs.org/) (Versión recomendada: 18 o superior)
+- Gestor de paquetes (`npm`, `yarn` o `pnpm`)
 
-### 2.3 Mejoras Opcionales / Características Adicionales
-* *AÑADIR DESCRIPCION*
+## Instalación y Ejecución
 
----
+1. Accede al directorio raíz del proyecto desde tu terminal:
 
-## 3. Arquitectura, Diagramas, Servicios y Datos
-
-El proyecto está diseñado bajo una **Arquitectura de Microservicios** desacoplados que consumen y exponen contratos API REST.
-
-### 3.1 Diagrama de Arquitectura
-```
-*COLOCAR DIAGRAMA AQUI*
-```
-
-### 3.2 Desglose de Microservicios y Propiedad de Datos
-
-*AÑADIR DESCRIPCION*
-
----
-
-## 4. Versiones, Compatibilidad y Prerrequisitos
-
-### 4.1 Tecnologías Utilizadas
-* **Frontend:** React `^18.x` (con Vite)
-* **Backend:** Python `^3.11` / Django `6.1.1` / Django REST Framework `3.18.1`
-* **Bases de Datos:** PostgreSQL `^15.x` / MongoDB `^6.x` (soporte para transacciones multidocumento / Replica Set en desarrollo/producción)
-* **Pasarela de Pago:** Sandbox
-
-### 4.2 Cuentas y Servicios de Terceros Necesarios
-* *AÑADIR DESCRIPCION*
-
----
-
-## 5. Instalación Desde Clon Limpio y Comandos por Servicio. 
-
-1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/SORRENTOS/Dev_web_bd.git
+   cd taskcampus
    ```
 
-2. **Activar entorno virtual:**
+2. Instala las dependencias necesarias:
+
    ```bash
-   -- definir que entorno virtual vamos a usar
+   npm install
    ```
 
-3. **Servicio de Gestión (PostgreSQL):**
+3. Inicia el servidor de desarrollo local:
    ```bash
-   -- colocar código aquí
+   npm run dev
    ```
 
-4. **Servicio de Catálogo e Inventario (MongoDB):**
-   ```bash
-   -- colocar código aquí
-   ```
+## Construcción para Producción
 
-5. **Servicio de Comercio (PostgreSQL):**
-   ```bash
-   -- colocar código aquí
-   ```
+Para compilar la aplicación y prepararla para su despliegue estático, ejecuta:
 
-6. **Frontend (React + Vite):**
-   ```bash
-   -- colocar código aquí
-   ```
-
----
-
-## 6. Variables de Entorno Sin Secretos
-
-### 6.1 Cod
-```
--- colocar código aquí
+```bash
+npm run build
 ```
 
----
+Este proceso empaquetará y optimizará los archivos en el directorio de salida (generalmente `dist/`).
 
-## 7. Datos Iniciales y Primer Administrador Seguro
+## Linting
 
-*AÑADIR DESCRIPCION*
+Para ejecutar el análisis estático de código y detectar posibles mejoras o errores, utiliza:
 
----
-
-## 8. Pruebas, Reportes; Estados, Reservas e Idempotencia
-
-*AÑADIR DESCRIPCION*
-
----
-
-## 9. URLs, Despliegue Remoto, Cuotas y Persistencia
-
-*AÑADIR DESCRIPCION*
-
----
-
-## 10. Logs, Reintentos, Respaldos y Recuperación.
-
-*AÑADIR DESCRIPCION*
-
----
-
-## 11. Trazabilidad, Contribuciones y Limitaciones Conocidas
-
-*AÑADIR DESCRIPCION*
-
----
-
-## 12. Procedencia y Licencias de Recursos
-
-* **Librerías de Terceros:** *AÑADIR LIBRERIAS*
-* **Documentación Oficial de Referencia:**
-  * [Django](https://www.djangoproject.com/)
-  * [Django REST Framework](https://www.django-rest-framework.org/)
-  * [ISO/IEC](https://www.iso.org/standard/78176.html)
-  * [MongoDB Atomicity](https://www.mongodb.com/docs/manual/core/write-operations-atomicity/)
-  * [MongoDB Transactions](https://www.mongodb.com/docs/manual/core/transactions/)
+```bash
+npx oxlint
+```
